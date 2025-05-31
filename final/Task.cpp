@@ -29,6 +29,7 @@ void Task::printTaskSubmissions() const
 		return;
 	}
 
+	std::cout << "All submissions: \n";
 	for (size_t i = 0; i < answers.getSize(); i++)
 	{
 		answers[i].printAnswer();

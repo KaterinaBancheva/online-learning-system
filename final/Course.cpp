@@ -84,9 +84,14 @@ unsigned Course::getTeacherId() const
 void Course::createInitialPassword(const MyString& password)
 {
 	if (password.getSize() == 0)
+	{
 		this->password = password;
+		std::cout << "Initial password created! \n";
+	}
 	else
+	{
 		throw std::logic_error("Password is already created");
+	}
 }
 
 void Course::addTask(const Task& task)
@@ -141,6 +146,7 @@ void Course::addStudent(Student& student)
 	if (!contains(student))
 	{
 		students.push_back(&student);
+		std::cout << student.getName() << " " << student.getFamilyName() << " entered course \"" << courseName << "\"\n";
 	}
 }
 
@@ -182,15 +188,19 @@ void Course::saveToFile(std::ofstream& ofs) const
 {
 	courseName.write(ofs);
 
-	ofs.write((const char*)teacher->getId(), sizeof(unsigned));
+	unsigned teacherId = teacher->getId();
+	ofs.write((const char*)&teacherId, sizeof(unsigned));
 
-	ofs.write((const char*)students.getSize(), sizeof(size_t));
+	size_t studentsSize = students.getSize();
+	ofs.write((const char*)&studentsSize, sizeof(size_t));
 	for (size_t i = 0; i < students.getSize(); i++)
 	{
-		ofs.write((const char*)students[i]->getId(), sizeof(unsigned));
+		unsigned studentId = students[i]->getId();
+		ofs.write((const char*)&studentId, sizeof(unsigned));
 	}
 
-	ofs.write((const char*)tasks.getSize(), sizeof(size_t));
+	size_t tasksSize = tasks.getSize();
+	ofs.write((const char*)&tasksSize, sizeof(size_t));
 	for (size_t i = 0; i < tasks.getSize(); i++)
 		tasks[i].saveToFile(ofs);
 

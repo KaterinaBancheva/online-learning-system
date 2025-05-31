@@ -22,7 +22,7 @@ LoggedUser System::logIn(unsigned id, const MyString& password)
 		{
 			std::cout << "Login successful! \n";
 			loggedUser = users[i];
-			return loggedUser;// password ?? bool function in class user
+			return loggedUser;
 		}
 	}
 
@@ -35,6 +35,7 @@ void System::logOut()
 	saveCoursesToFile(FileNames::courses);
 	saveUsersToFile(FileNames::users);
 	loggedUser = nullptr;
+	std::cout << "Logout successful! \n";
 }
 
 void System::sendMessageTo(const MyString& userName, const MyString& familyName, const MyString& message)
@@ -67,7 +68,6 @@ void System::enterCourse(const MyString& courseName, const MyString& password)
 	if (index != -1)
 	{
 		courses[index].addStudent(*loggedUser.getStudentPtr());
-		//sortUsersById();
 	}
 	else
 	{
@@ -90,6 +90,7 @@ void System::submitTask(const MyString& course, const MyString& taskDescription,
 			if(courses[index].findTaskByDescription(taskDescription) != -1)
 			{
 				courses[index].addTaskSubmission(taskDescription, answer); 
+				std::cout << "Task submission added! \n";
 			}
 			else
 			{
@@ -131,6 +132,7 @@ void System::createCourse(const MyString& courseName, const MyString& password)
 
 	Course c(courseName, *loggedUser.getTeacherPtr(), password);
 	courses.push_back(c);
+	std::cout << courseName << " created! \n";
 }
 
 void System::addToCourse(const MyString& course, Student& student)
@@ -148,6 +150,7 @@ void System::addToCourse(const MyString& course, Student& student)
 
 		unsigned id = findCourseByName(course);
 		courses[id].addStudent(student);
+		std::cout << "Student with id " << student.getId() << " added to course!\n";
 	}
 	//sortUsersById();
 }
@@ -169,6 +172,7 @@ void System::createTask(const MyString& description, const MyString& course)
 	{
 		Task temp = Task(description);
 		courses[indx].addTask(std::move(temp));
+		std::cout << description << " added! \n";
 	}
 	else
 	{
@@ -215,6 +219,7 @@ void System::gradeTask(const MyString& course, const MyString& task, unsigned st
 	if (courses[courseIndx].getTeacherId() == loggedUser.getTeacherPtr()->getId())
 	{
 		courses[courseIndx].gradeStudent(studentId, task);
+		std::cout << task << " graded! \n";
 	}
 	else
 	{
@@ -255,6 +260,7 @@ void System::createTeacher(const MyString& name, const MyString& familyName, con
 {
 	Teacher* ptr = new Teacher(name, familyName, password);
 	users.push_back(ptr);
+	std::cout << "Teacher with id " << ptr->getId() << " created!\n";
 }
 
 void System::deleteTeacher(unsigned id)
@@ -275,6 +281,7 @@ void System::createStudent(const MyString& name, const MyString& familyName, con
 {
 	Student* ptr = new Student(name, familyName, password);
 	users.push_back(ptr);
+	std::cout << "Student  with id " << ptr->getId() << " created!\n";
 }
 
 void System::deleteStudent(unsigned id)
@@ -367,8 +374,9 @@ void System::loadUsers(const MyString& filename)
 
 void System::saveCoursesToFile(const MyString& filename) const
 {	
-	std::ofstream ofs((const char*)&filename, std::ios::binary);
-	ofs.write((const char*)courses.getSize(), sizeof(size_t));
+	std::ofstream ofs(filename.c_str(), std::ios::binary);
+	size_t coursesSize = courses.getSize();
+	ofs.write((const char*)&coursesSize, sizeof(size_t));
 	for (size_t i = 0; i < courses.getSize(); i++)
 	{
 		courses[i].saveToFile(ofs);
@@ -378,8 +386,9 @@ void System::saveCoursesToFile(const MyString& filename) const
 
 void System::saveUsersToFile(const MyString& filename) const
 {
-	std::ofstream ofs((const char*)&filename, std::ios::binary);
-	ofs.write((const char*)courses.getSize(), sizeof(size_t));
+	std::ofstream ofs(filename.c_str(), std::ios::binary);
+	size_t usersSize = users.getSize();
+	ofs.write((const char*)&usersSize, sizeof(size_t));
 	for (size_t i = 0; i < users.getSize(); i++)
 	{
 		users[i]->saveToFile(ofs);

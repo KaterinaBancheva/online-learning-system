@@ -82,6 +82,10 @@ void adminFunctions(System& s)
 			s.getLogedUser().getPtr()->changePassword(buffer);
 		}
 	}
+	else if (buffer == "logout")
+	{
+		s.logOut();
+	}
 }
 
 void teacherFunctions(System& s)
@@ -200,6 +204,10 @@ void teacherFunctions(System& s)
 			s.getLogedUser().getPtr()->changePassword(buffer);
 		}
 	}
+	else if (buffer == "logout")
+	{
+		s.logOut();
+	}
 }
 
 void studentFunctions(System& s)
@@ -242,7 +250,7 @@ void studentFunctions(System& s)
 			s.reviewGrades();
 		}
 	}
-	else if (buffer == "Send") 
+	else if (buffer == "Send")
 	{
 		std::cin >> buffer;
 		if (buffer == "message")
@@ -275,6 +283,10 @@ void studentFunctions(System& s)
 			s.getLogedUser().getPtr()->changePassword(buffer);
 		}
 	}
+	else if (buffer == "logout")
+	{
+		s.logOut();
+	}
 }
 
 void helpMenu(UserType user, System& s)
@@ -294,13 +306,25 @@ void helpMenu(UserType user, System& s)
 int main()
 {
 	System& system = System::getInstance();
-	
+
 	MyString buffer;
 	while (true)
 	{
 		std::cout << ">";
 		std::cin >> buffer;
-		if (buffer == "login")
+
+		if (system.getLogedUser().getPtr() != nullptr)
+		{
+			if (buffer == "logout")
+			{
+				system.logOut();
+			}
+			else
+			{
+				helpMenu(system.getLogedUser().getUserType(), system);
+			}
+		}
+		else if (buffer == "login")
 		{
 			unsigned id;
 			std::cin >> id;
@@ -308,16 +332,15 @@ int main()
 			{
 				std::cin >> buffer;
 				system.logIn(id, buffer);
-				UserType type = system.getLogedUser().getUserType();
-
-				while (true) {
-					if (buffer == "logout") {
-						system.logOut();
-						break;
-					}
-					helpMenu(type, system);
-				}
 			}
+		}
+		else if (buffer == "exit")
+		{
+			break;
+		}
+		else
+		{
+			std::cout << "Invalid command!\n";
 		}
 	}
 

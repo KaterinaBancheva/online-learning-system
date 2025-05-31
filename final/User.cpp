@@ -85,6 +85,7 @@ unsigned User::getId() const
 void User::sendMessageTo(User* user, const Message& message)
 {
     user->receiveMessage(message);
+    std::cout << "Message sent to " << user->getName() << " " << user->getFamilyName() << "! \n";
 }
 
 void User::receiveMessage(const Message& message)
