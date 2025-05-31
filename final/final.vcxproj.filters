@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\tools">
+      <UniqueIdentifier>{5ad10168-e775-4b41-a956-76d855d03ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\users">
+      <UniqueIdentifier>{35864603-f943-4a14-b5ce-c30ef478d89d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utility">
+      <UniqueIdentifier>{a55f56c0-012b-44bb-94f4-7ddeb62f22bc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="final.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Answer.cpp">
+      <Filter>Header Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="MyString.cpp">
+      <Filter>Header Files\utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Grade.cpp">
+      <Filter>Header Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>Header Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Header Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Administrator.cpp">
+      <Filter>Header Files\users</Filter>
+    </ClCompile>
+    <ClCompile Include="MailBox.cpp">
+      <Filter>Header Files\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="User.cpp">
+      <Filter>Header Files\users</Filter>
+    </ClCompile>
+    <ClCompile Include="Teacher.cpp">
+      <Filter>Header Files\users</Filter>
+    </ClCompile>
+    <ClCompile Include="Course.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Student.cpp">
+      <Filter>Header Files\users</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggedUser.cpp">
+      <Filter>Header Files\users</Filter>
+    </ClCompile>
+    <ClCompile Include="UserFactory.cpp">
+      <Filter>Header Files\utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Answer.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="MyString.h">
+      <Filter>Header Files\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="MyVector.hpp">
+      <Filter>Header Files\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="UserType.h">
+      <Filter>Header Files\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Grade.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Administrator.h">
+      <Filter>Header Files\users</Filter>
+    </ClInclude>
+    <ClInclude Include="MailBox.h">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="User.h">
+      <Filter>Header Files\users</Filter>
+    </ClInclude>
+    <ClInclude Include="Teacher.h">
+      <Filter>Header Files\users</Filter>
+    </ClInclude>
+    <ClInclude Include="Course.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
+      <Filter>Header Files\users</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggedUser.h">
+      <Filter>Header Files\users</Filter>
+    </ClInclude>
+    <ClInclude Include="UserFactory.h">
+      <Filter>Header Files\utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
