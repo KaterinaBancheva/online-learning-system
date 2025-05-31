@@ -1,4 +1,7 @@
-﻿#include <iostream>
+﻿//Katerina Bancheva 
+//1MI0600482
+
+#include <iostream>
 #include "MyString.h"
 #include "System.h"
 
