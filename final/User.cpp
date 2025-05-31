@@ -82,6 +82,11 @@ unsigned User::getId() const
     return id;
 }
 
+bool User::matchingPass(const MyString& password) const
+{
+    return this->password == password;
+}
+
 void User::sendMessageTo(User* user, const Message& message)
 {
     user->receiveMessage(message);

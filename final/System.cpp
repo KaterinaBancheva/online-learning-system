@@ -18,9 +18,8 @@ LoggedUser System::logIn(unsigned id, const MyString& password)
 { 
 	for (size_t i = 0; i < users.getSize(); i++)
 	{
-		if (id == users[i]->getId())
+		if (id == users[i]->getId() && users[i]->matchingPass(password) == true)
 		{
-			std::cout << "Login successful! \n";
 			loggedUser = users[i];
 			return loggedUser;
 		}
@@ -34,7 +33,7 @@ void System::logOut()
 	saveAdminToFile(FileNames::admin);
 	saveCoursesToFile(FileNames::courses);
 	saveUsersToFile(FileNames::users);
-	loggedUser = nullptr;
+	loggedUser.setAllPoinetersToNull();
 	std::cout << "Logout successful! \n";
 }
 

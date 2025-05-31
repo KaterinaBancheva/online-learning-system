@@ -48,3 +48,10 @@ Student* LoggedUser::getStudentPtr() const
 {
 	return studentPtr;
 }
+
+void LoggedUser::setAllPoinetersToNull()
+{
+	adminPtr == nullptr;
+	studentPtr = nullptr;
+	teacherPtr = nullptr;
+}

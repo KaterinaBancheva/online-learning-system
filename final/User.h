@@ -32,6 +32,8 @@ public:
 	UserType getType() const;
 	unsigned getId() const;
 
+	bool matchingPass(const MyString& password) const;
+
 	void sendMessageTo(User* user, const Message& message);
 	void receiveMessage(const Message& message);
 	void checkMailbox() const;

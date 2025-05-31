@@ -82,10 +82,6 @@ void adminFunctions(System& s)
 			s.getLogedUser().getPtr()->changePassword(buffer);
 		}
 	}
-	else if (buffer == "logout")
-	{
-		s.logOut();
-	}
 }
 
 void teacherFunctions(System& s)
@@ -204,10 +200,6 @@ void teacherFunctions(System& s)
 			s.getLogedUser().getPtr()->changePassword(buffer);
 		}
 	}
-	else if (buffer == "logout")
-	{
-		s.logOut();
-	}
 }
 
 void studentFunctions(System& s)
@@ -283,10 +275,6 @@ void studentFunctions(System& s)
 			s.getLogedUser().getPtr()->changePassword(buffer);
 		}
 	}
-	else if (buffer == "logout")
-	{
-		s.logOut();
-	}
 }
 
 void helpMenu(UserType user, System& s)
@@ -310,37 +298,47 @@ int main()
 	MyString buffer;
 	while (true)
 	{
-		std::cout << ">";
-		std::cin >> buffer;
+		try {
+			std::cout << ">";
+			std::cin >> buffer;
 
-		if (system.getLogedUser().getPtr() != nullptr)
-		{
-			if (buffer == "logout")
+			if (system.getLogedUser().getPtr() != nullptr)
 			{
-				system.logOut();
+				if (buffer == "logout")
+				{
+					system.logOut();
+				}
+				else
+				{
+					helpMenu(system.getLogedUser().getUserType(), system);
+				}
+			}
+			else if (buffer == "login")
+			{
+				unsigned id;
+				std::cin >> id;
+				if (system.getUserIndexById(id) != -1)
+				{
+					std::cin >> buffer;
+					system.logIn(id, buffer);
+					std::cout << "Login successful! \n";
+					helpMenu(system.getLogedUser().getUserType(), system);
+				}
+			}
+			else if (buffer == "exit")
+			{
+				break;
 			}
 			else
 			{
-				helpMenu(system.getLogedUser().getUserType(), system);
+				std::cout << "Invalid command!\n";
 			}
 		}
-		else if (buffer == "login")
-		{
-			unsigned id;
-			std::cin >> id;
-			if (system.getUserIndexById(id) != -1)
-			{
-				std::cin >> buffer;
-				system.logIn(id, buffer);
-			}
+		catch (std::invalid_argument& ex) {
+			std::cout << ex.what() << "\n";
 		}
-		else if (buffer == "exit")
-		{
-			break;
-		}
-		else
-		{
-			std::cout << "Invalid command!\n";
+		catch (std::logic_error& ex) {
+			std::cout << ex.what() << "\n";
 		}
 	}
 

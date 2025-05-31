@@ -20,5 +20,7 @@ public:
 	Administrator* getAdminPtr() const;
 	Teacher* getTeacherPtr() const;
 	Student* getStudentPtr() const;
+
+	void setAllPoinetersToNull();
 };
 

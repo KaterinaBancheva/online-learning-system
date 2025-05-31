@@ -99,7 +99,7 @@ void MyString::read(std::ifstream& ifs)
 {
 	free();
 	ifs.read((char*)&capacity, sizeof(capacity));
-	data = new char[capacity];
+	data = new char[capacity] {};
 	ifs.read((char*)&size, sizeof(size));
 	ifs.read((char*)data, size);
 }
