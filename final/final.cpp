@@ -79,7 +79,7 @@ void adminFunctions(System& s)
 		if (buffer == "password")
 		{
 			std::cin >> buffer;
-			s.getLogedUser().getPtr()->changePassword(buffer);
+			s.getLoggedUser().getPtr()->changePassword(buffer);
 		}
 	}
 }
@@ -197,7 +197,7 @@ void teacherFunctions(System& s)
 		if (buffer == "password")
 		{
 			std::cin >> buffer;
-			s.getLogedUser().getPtr()->changePassword(buffer);
+			s.getLoggedUser().getPtr()->changePassword(buffer);
 		}
 	}
 }
@@ -230,7 +230,7 @@ void studentFunctions(System& s)
 			MyString description, ans;
 			std::cin >> description;
 			std::cin >> ans;
-			Answer a(s.getLogedUser().getStudentPtr()->getName(), ans);
+			Answer a(s.getLoggedUser().getStudentPtr()->getName(), ans);
 			s.submitTask(buffer, description, a);
 		}
 	}
@@ -272,7 +272,7 @@ void studentFunctions(System& s)
 		if (buffer == "password")
 		{
 			std::cin >> buffer;
-			s.getLogedUser().getPtr()->changePassword(buffer);
+			s.getLoggedUser().getPtr()->changePassword(buffer);
 		}
 	}
 }
@@ -302,7 +302,7 @@ int main()
 			std::cout << ">";
 			std::cin >> buffer;
 
-			if (system.getLogedUser().getPtr() != nullptr)
+			if (system.getLoggedUser().getPtr() != nullptr)
 			{
 				if (buffer == "logout")
 				{
@@ -310,7 +310,7 @@ int main()
 				}
 				else
 				{
-					helpMenu(system.getLogedUser().getUserType(), system);
+					helpMenu(system.getLoggedUser().getUserType(), system);
 				}
 			}
 			else if (buffer == "login")
@@ -322,7 +322,7 @@ int main()
 					std::cin >> buffer;
 					system.logIn(id, buffer);
 					std::cout << "Login successful! \n";
-					helpMenu(system.getLogedUser().getUserType(), system);
+					helpMenu(system.getLoggedUser().getUserType(), system);
 				}
 			}
 			else if (buffer == "exit")

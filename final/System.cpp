@@ -30,16 +30,29 @@ LoggedUser System::logIn(unsigned id, const MyString& password)
 
 void System::logOut()
 {
-	saveAdminToFile(FileNames::admin);
-	saveCoursesToFile(FileNames::courses);
-	saveUsersToFile(FileNames::users);
-	loggedUser.setAllPoinetersToNull();
-	std::cout << "Logout successful! \n";
+	if (loggedUser.getPtr() != nullptr)
+	{
+		saveAdminToFile(FileNames::admin);
+		saveCoursesToFile(FileNames::courses);
+		saveUsersToFile(FileNames::users);
+		loggedUser.setAllPoinetersToNull();
+		std::cout << "Logout successful! \n";
+	}
+	else
+	{
+		throw std::logic_error("No user is logged in!");
+	}
 }
 
 void System::sendMessageTo(const MyString& userName, const MyString& familyName, const MyString& message)
 {
 	int indx = getUserIndexByName(userName, familyName);
+
+	if (indx == -1) 
+	{
+		throw std::invalid_argument("User not found!");
+	}
+
 	MyString firstName = userName;
 	MyString userNameeee = firstName + " " + familyName;
 	Message m = Message(message, userNameeee);
@@ -142,12 +155,12 @@ void System::addToCourse(const MyString& course, Student& student)
 	}
 	else
 	{
-		if (findCourseByName(course) == -1)
+		unsigned id = findCourseByName(course);
+		if (id == -1)
 		{
 			throw std::logic_error("This course does not exists!");
 		}
-
-		unsigned id = findCourseByName(course);
+		
 		courses[id].addStudent(student);
 		std::cout << "Student with id " << student.getId() << " added to course!\n";
 	}
@@ -297,7 +310,7 @@ void System::deleteStudent(unsigned id)
 	}
 }
 
-const LoggedUser& System::getLogedUser() const
+const LoggedUser& System::getLoggedUser() const
 {
 	return loggedUser;
 }
@@ -307,6 +320,8 @@ Student* System::getStudentById(unsigned id) const
 	int i = getUserIndexById(id);
 	if (i != -1)
 		return dynamic_cast<Student*>(users[i]);
+	else
+		throw std::logic_error("Invalid student id!\n");
 }
 
 int System::getUserIndexByName(const MyString& name, const MyString& familyName)
@@ -347,27 +362,42 @@ void System::freeUsers()
 	users.clear();
 }
 
-void System::loadCourses(const MyString& filename, MyVector<User*> users)
+void System::loadCourses(const MyString& filename, MyVector<User*>& users)
 {
-	std::ifstream ifs((const char*)&filename, std::ios::binary);
+	std::ifstream ifs(filename.c_str(), std::ios::binary);
+
+	/*if (!ifs.is_open())
+	{
+		throw std::ios_base::failure("Failed to open courses file!");
+	}*/
+
 	size_t size = 0;
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
-		courses[i].readFromFile(ifs, users); 
+		Course temp;
+		temp.readFromFile(ifs, users);
+		courses.push_back(temp); 
 	}
 }
 
 void System::loadUsers(const MyString& filename)
 {
 	std::ifstream ifs((const char*)&filename, std::ios::binary);
+	
+	/*if (!ifs.is_open()) 
+	{
+		throw std::ios_base::failure("Failed to open users file!");
+	}*/
+	
 	size_t size = 0;
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
 		UserFactory factory;
 		User* toAdd = factory.createUser(ifs);
-		users.push_back(toAdd);
+		if(toAdd->getId() != 0)
+			users.push_back(toAdd);
 	}
 }
 
@@ -396,7 +426,7 @@ void System::saveUsersToFile(const MyString& filename) const
 
 void System::saveAdminToFile(const MyString& filename) const
 {
-	std::ofstream ofs((const char*)&filename, std::ios::binary);
+	std::ofstream ofs(filename.c_str(), std::ios::binary);
 	admin.saveToFile(ofs);
 }
 

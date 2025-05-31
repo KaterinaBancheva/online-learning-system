@@ -1,7 +1,8 @@
 #include "Student.h"
 #include <iostream>
 
-Student::Student(const MyString& name, const MyString& familyName, const MyString& password) : User(name, familyName, password) 
+Student::Student(const MyString& name, const MyString& familyName, const MyString& password) 
+    : User(name, familyName, password) 
 {
     type = UserType::student;
 };

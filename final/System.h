@@ -20,7 +20,7 @@ protected:
 
 	void freeUsers();
 
-	void loadCourses(const MyString& filename, MyVector<User*> users);
+	void loadCourses(const MyString& filename, MyVector<User*>& users);
 	void loadUsers(const MyString& filename);
 
 	void saveCoursesToFile(const MyString& filename) const;
@@ -36,7 +36,7 @@ public:
 	static System& getInstance();
 
 	// get set
-	const LoggedUser& getLogedUser() const;
+	const LoggedUser& getLoggedUser() const;
 	Student* getStudentById(unsigned id) const;
 	int getUserIndexByName(const MyString& name, const MyString& familyName);
 	int getUserIndexById(unsigned id) const;
