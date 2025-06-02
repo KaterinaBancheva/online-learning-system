@@ -41,6 +41,7 @@ public:
 
 	virtual User* clone() const = 0;
 	virtual void printInfo() const = 0;
+	virtual ~User() = default;
 
 	void saveToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs);

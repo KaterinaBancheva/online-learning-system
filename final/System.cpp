@@ -21,6 +21,10 @@ LoggedUser System::logIn(unsigned id, const MyString& password)
 		if (id == users[i]->getId() && users[i]->matchingPass(password) == true)
 		{
 			loggedUser = users[i];
+			if(users[i]->getId() != 0)
+			{
+				users[i]->printInfo();
+			}
 			return loggedUser;
 		}
 	}
@@ -32,9 +36,10 @@ void System::logOut()
 {
 	if (loggedUser.getPtr() != nullptr)
 	{
-		saveAdminToFile(FileNames::admin);
+		/*saveAdminToFile(FileNames::admin);
 		saveCoursesToFile(FileNames::courses);
-		saveUsersToFile(FileNames::users);
+		saveUsersToFile(FileNames::users);*/
+
 		loggedUser.setAllPoinetersToNull();
 		std::cout << "Logout successful! \n";
 	}
@@ -42,6 +47,13 @@ void System::logOut()
 	{
 		throw std::logic_error("No user is logged in!");
 	}
+}
+
+void System::exit() const
+{
+	saveAdminToFile(FileNames::admin);
+	saveCoursesToFile(FileNames::courses);
+	saveUsersToFile(FileNames::users);
 }
 
 void System::sendMessageTo(const MyString& userName, const MyString& familyName, const MyString& message)
@@ -53,10 +65,11 @@ void System::sendMessageTo(const MyString& userName, const MyString& familyName,
 		throw std::invalid_argument("User not found!");
 	}
 
-	MyString firstName = userName;
-	MyString userNameeee = firstName + " " + familyName;
+	//MyString firstName = userName;
+	MyString userNameeee = userName + " " + familyName;
 	Message m = Message(message, userNameeee);
 	loggedUser.getPtr()->sendMessageTo(users[indx], m);
+	std::cout << "Message sent to " << userNameeee << "\n";
 }
 
 void System::checkMailbox() const
@@ -366,11 +379,6 @@ void System::loadCourses(const MyString& filename, MyVector<User*>& users)
 {
 	std::ifstream ifs(filename.c_str(), std::ios::binary);
 
-	/*if (!ifs.is_open())
-	{
-		throw std::ios_base::failure("Failed to open courses file!");
-	}*/
-
 	size_t size = 0;
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
@@ -384,11 +392,6 @@ void System::loadCourses(const MyString& filename, MyVector<User*>& users)
 void System::loadUsers(const MyString& filename)
 {
 	std::ifstream ifs((const char*)&filename, std::ios::binary);
-	
-	/*if (!ifs.is_open()) 
-	{
-		throw std::ios_base::failure("Failed to open users file!");
-	}*/
 	
 	size_t size = 0;
 	ifs.read((char*)&size, sizeof(size));
@@ -449,6 +452,9 @@ System::System()
 		}
 		admin.saveToFile(ofs);
 	}
+
+	admin.setId();
+	admin.setPassword("0000");
 
 	load();
 	users.push_back(&admin);

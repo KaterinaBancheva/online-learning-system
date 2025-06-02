@@ -41,15 +41,15 @@ void adminFunctions(System& s)
 		std::cin >> id;
 		if (buffer == "teacher")
 		{
-			unsigned ID;
-			std::cin >> ID;
-			s.deleteTeacher(ID);
+			/*unsigned ID;
+			std::cin >> ID;*/
+			s.deleteTeacher(id);
 		}
 		else if (buffer == "student")
 		{
-			unsigned ID;
-			std::cin >> ID;
-			s.deleteStudent(ID);
+			/*unsigned ID;
+			std::cin >> ID;*/
+			s.deleteStudent(id);
 		}
 	}
 	else if (buffer == "Send")
@@ -85,11 +85,12 @@ void adminFunctions(System& s)
 			s.getLoggedUser().getPtr()->changePassword(buffer);
 		}
 	}
+	std::cout << std::endl;
 }
 
 void teacherFunctions(System& s)
 {
-	std::cout << "Create course/task/initial_password \n Add student to course \n View task submissions \n Grade task \n";
+	std::cout << "Create course/task/initial_password \nAdd student to course \nView task submissions \nGrade task \n";
 
 	MyString buffer;
 	std::cout << ">";
@@ -203,11 +204,12 @@ void teacherFunctions(System& s)
 			s.getLoggedUser().getPtr()->changePassword(buffer);
 		}
 	}
+	std::cout << std::endl;
 }
 
 void studentFunctions(System& s)
 {
-	std::cout << "Enter course \n Submit task \n Review grades \n";
+	std::cout << "Enter course \nSubmit task \nReview grades \n";
 
 	MyString buffer;
 	std::cout << ">";
@@ -278,11 +280,13 @@ void studentFunctions(System& s)
 			s.getLoggedUser().getPtr()->changePassword(buffer);
 		}
 	}
+
+	std::cout << std::endl;
 }
 
 void helpMenu(UserType user, System& s)
 {
-	std::cout << "Send message to \n Check mailbox \n Change password \n";
+	std::cout << "Send message to \nCheck mailbox \nChange password \n";
 
 	switch (user)
 	{
@@ -330,6 +334,7 @@ int main()
 			}
 			else if (buffer == "exit")
 			{
+				system.exit();
 				break;
 			}
 			else

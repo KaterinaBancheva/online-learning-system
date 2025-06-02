@@ -14,6 +14,7 @@ public:
 
     void printInfo() const override;
     User* clone() const override;
+    ~Student() override = default;
 
     void addGrade(const Grade& grade);
     void addGrade(Grade&& grade);

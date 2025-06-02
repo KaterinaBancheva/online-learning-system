@@ -9,6 +9,7 @@ public:
 
     User* clone() const override;
     void printInfo() const override;
+    ~Teacher() override = default;
 };
 
 

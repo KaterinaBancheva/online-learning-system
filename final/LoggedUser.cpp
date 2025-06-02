@@ -54,4 +54,6 @@ void LoggedUser::setAllPoinetersToNull()
 	adminPtr == nullptr;
 	studentPtr = nullptr;
 	teacherPtr = nullptr;
+
+	ptr = nullptr;
 }

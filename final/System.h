@@ -45,6 +45,7 @@ public:
 	void load();
 	LoggedUser logIn(unsigned id, const MyString& password);
 	void logOut();
+	void exit() const;
 	//void saveMessage(const MailBox& mail);
 
 	void sendMessageTo(const MyString& userName, const MyString& familyName, const MyString& message);

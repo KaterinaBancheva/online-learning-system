@@ -5,9 +5,19 @@ Administrator::Administrator() : Administrator("Admin", "Profile")
 { };
 
 Administrator::Administrator(const MyString& name, const MyString& familyName)
-	: User(name, familyName, "0000")
+	: User(" ", " ", "0000")
 {
 	type = UserType::admin;
+}
+
+void Administrator::setPassword(const MyString& pass)
+{
+	password = pass;
+}
+
+void Administrator::setId()
+{
+	id = 0;
 }
 
 User* Administrator::clone() const
