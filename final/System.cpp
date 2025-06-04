@@ -66,10 +66,11 @@ void System::sendMessageTo(const MyString& userName, const MyString& familyName,
 	}
 
 	//MyString firstName = userName;
-	MyString userNameeee = userName + " " + familyName;
+	MyString userNameeee = loggedUser.getPtr()->getName() + " " + loggedUser.getPtr()->getFamilyName();
+	//MyString userNameeee = userName + " " + familyName;
 	Message m = Message(message, userNameeee);
 	loggedUser.getPtr()->sendMessageTo(users[indx], m);
-	std::cout << "Message sent to " << userNameeee << "\n";
+	std::cout << "Message sent to " << userName << " " << familyName << "\n";
 }
 
 void System::checkMailbox() const
@@ -156,7 +157,7 @@ void System::createCourse(const MyString& courseName, const MyString& password)
 	}
 
 	Course c(courseName, *loggedUser.getTeacherPtr(), password);
-	courses.push_back(c);
+	courses.push_back(std::move(c));
 	std::cout << courseName << " created! \n";
 }
 
@@ -435,7 +436,7 @@ void System::saveAdminToFile(const MyString& filename) const
 
 System::System()
 {
-	std::ifstream ifs("Admin.dat", std::ios::binary);
+	std::ifstream ifs("Admin.bin", std::ios::binary);
 	if (ifs.is_open()) 
 	{
 		admin.readFromFile(ifs);
@@ -445,7 +446,7 @@ System::System()
 	{
 		ifs.close();
 		
-		std::ofstream ofs("Admin.dat", std::ios::binary);
+		std::ofstream ofs("Admin.bin", std::ios::binary);
 		if (!ofs.is_open()) 
 		{
 			throw std::exception("Could not open admin file!");
@@ -455,6 +456,7 @@ System::System()
 
 	admin.setId();
 	admin.setPassword("0000");
+	admin.setNames("Administrator", " ");
 
 	load();
 	users.push_back(&admin);

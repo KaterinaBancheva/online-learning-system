@@ -12,78 +12,54 @@ void adminFunctions(System& s)
 	MyString buffer;
 	std::cout << ">";
 	std::cin >> buffer;
-	if (buffer == "Create")
+	if (buffer == "create_teacher")
 	{
 		std::cin >> buffer;
-		if (buffer == "teacher")
-		{
-			std::cin >> buffer;
-			MyString name;
-			std::cin >> name;
-			MyString pass;
-			std::cin >> pass;
-			s.createTeacher(buffer, name, pass);
-		}
-		else if (buffer == "student")
-		{
-			std::cin >> buffer;
-			MyString name;
-			std::cin >> name;
-			MyString pass;
-			std::cin >> pass;
-			s.createStudent(buffer, name, pass);
-		}
+		MyString name;
+		std::cin >> name;
+		MyString pass;
+		std::cin >> pass;
+		s.createTeacher(buffer, name, pass);
 	}
-	else if (buffer == "Delete")
+	else if (buffer == "create_student")
+	{
+		std::cin >> buffer;
+		MyString name;
+		std::cin >> name;
+		MyString pass;
+		std::cin >> pass;
+		s.createStudent(buffer, name, pass);
+	}
+	else if (buffer == "delete_teacher")
 	{
 		std::cin >> buffer;
 		unsigned id;
 		std::cin >> id;
-		if (buffer == "teacher")
-		{
-			/*unsigned ID;
-			std::cin >> ID;*/
-			s.deleteTeacher(id);
-		}
-		else if (buffer == "student")
-		{
-			/*unsigned ID;
-			std::cin >> ID;*/
-			s.deleteStudent(id);
-		}
+		s.deleteTeacher(id);
 	}
-	else if (buffer == "Send")
+	else if (buffer == "delete_student")
 	{
 		std::cin >> buffer;
-		if (buffer == "message")
-		{
-			std::cin >> buffer;
-			if (buffer == "to")
-			{
-				std::cin >> buffer;
-				MyString familyName, mess;
-				std::cin >> familyName;
-				std::cin >> mess;
-				s.sendMessageTo(buffer, familyName, mess);
-			}
-		}
+		unsigned id;
+		std::cin >> id;
+		s.deleteStudent(id);
 	}
-	else if (buffer == "Check")
+	else if (buffer == "send_message_to")
 	{
 		std::cin >> buffer;
-		if (buffer == "mailbox")
-		{
-			s.checkMailbox();
-		}
+		MyString familyName, mess;
+		std::cin >> familyName;
+		std::cin >> mess;
+		s.sendMessageTo(buffer, familyName, mess);
 	}
-	else if (buffer == "Change")
+	else if (buffer == "check_mailbox")
+	{
+		s.checkMailbox();
+	}
+	else if (buffer == "change_password")
 	{
 		std::cin >> buffer;
-		if (buffer == "password")
-		{
-			std::cin >> buffer;
-			s.getLoggedUser().getPtr()->changePassword(buffer);
-		}
+		s.getLoggedUser().getPtr()->changePassword(buffer);
 	}
 	std::cout << std::endl;
 }
@@ -95,114 +71,66 @@ void teacherFunctions(System& s)
 	MyString buffer;
 	std::cout << ">";
 	std::cin >> buffer;
-	if (buffer == "Create")
+	if (buffer == "create_course")
 	{
 		std::cin >> buffer;
-		if (buffer == "course")
-		{
-			std::cin >> buffer;
-			MyString pass;
-			std::cin >> pass;
-			s.createCourse(buffer, pass);
-		}
-		else if (buffer == "task")
-		{
-			std::cin >> buffer;
-			MyString course;
-			std::cin >> course;
-			s.createTask(buffer, course);
-		}
-		else if (buffer == "initial")
-		{
-			std::cin >> buffer;
-			if (buffer == "password")
-			{
-				std::cin >> buffer;
-				MyString pass;
-				std::cin >> pass;
-				s.createInitialPassword(buffer, pass);
-			}
-		}
+		MyString pass;
+		std::cin >> pass;
+		s.createCourse(buffer, pass);
 	}
-	else if (buffer == "Add")
+	else if (buffer == "create_task")
 	{
 		std::cin >> buffer;
-		if (buffer == "student")
-		{
-			std::cin >> buffer;
-			if (buffer == "to")
-			{
-				std::cin >> buffer;
-				if (buffer == "course")
-				{
-					std::cin >> buffer;
-					unsigned ID;
-					std::cin >> ID;
-					s.addToCourse(buffer, *s.getStudentById(ID));
-				}
-			}
-		}
+		MyString course;
+		std::cin >> course;
+		s.createTask(buffer, course);
 	}
-	else if (buffer == "View")
+	else if (buffer == "create_initial_password")
 	{
 		std::cin >> buffer;
-		if (buffer == "task")
-		{
-			std::cin >> buffer;
-			if (buffer == "submissions")
-			{
-				std::cin >> buffer;
-				MyString course;
-				std::cin >> course;
-				s.viewTaskSubmissions(buffer, course);
-			}
-		}
+		MyString pass;
+		std::cin >> pass;
+		s.createInitialPassword(buffer, pass);
 	}
-	else if (buffer == "Grade")
+	else if (buffer == "add_student_to_course")
 	{
 		std::cin >> buffer;
-		if (buffer == "task")
-		{
-			std::cin >> buffer;
-			MyString task;
-			std::cin >> task;
-			unsigned ID;
-			std::cin >> ID;
-			s.gradeTask(buffer, task, ID);
-		}
+		unsigned ID;
+		std::cin >> ID;
+		s.addToCourse(buffer, *s.getStudentById(ID));
 	}
-	else if (buffer == "Send")
+	else if (buffer == "view_task_submissions")
 	{
 		std::cin >> buffer;
-		if (buffer == "message")
-		{
-			std::cin >> buffer;
-			if (buffer == "to")
-			{
-				std::cin >> buffer;
-				MyString familyName, mess;
-				std::cin >> familyName;
-				std::cin >> mess;
-				s.sendMessageTo(buffer, familyName, mess);
-			}
-		}
+		MyString course;
+		std::cin >> course;
+		s.viewTaskSubmissions(buffer, course);
 	}
-	else if (buffer == "Check")
+	else if (buffer == "grade_task")
 	{
 		std::cin >> buffer;
-		if (buffer == "mailbox")
-		{
-			s.checkMailbox();
-		}
+		MyString task;
+		std::cin >> task;
+		unsigned ID;
+		std::cin >> ID;
+		s.gradeTask(buffer, task, ID);
 	}
-	else if (buffer == "Change")
+	else if (buffer == "send_message_to")
 	{
 		std::cin >> buffer;
-		if (buffer == "password")
-		{
-			std::cin >> buffer;
-			s.getLoggedUser().getPtr()->changePassword(buffer);
-		}
+		MyString familyName, mess;
+		std::cin >> familyName;
+		std::cin >> mess;
+		s.sendMessageTo(buffer, familyName, mess);
+	}
+	else if (buffer == "check_mailbox")
+	{
+		s.checkMailbox();
+	}
+	else if (buffer == "change_password")
+	{
+		std::cin >> buffer;
+		s.getLoggedUser().getPtr()->changePassword(buffer);
 	}
 	std::cout << std::endl;
 }
@@ -214,73 +142,44 @@ void studentFunctions(System& s)
 	MyString buffer;
 	std::cout << ">";
 	std::cin >> buffer;
-	if (buffer == "Enter")
-	{
-		std::cin >> buffer;
-		if (buffer == "course")
-		{
-			std::cin >> buffer;
-			MyString pass;
-			std::cin >> pass;
-			s.enterCourse(buffer, pass);
-		}
 
-	}
-	else if (buffer == "Submit")
+	if (buffer == "enter_course")
 	{
 		std::cin >> buffer;
-		if (buffer == "task")
-		{
-			std::cin >> buffer;
-			MyString description, ans;
-			std::cin >> description;
-			std::cin >> ans;
-			Answer a(s.getLoggedUser().getStudentPtr()->getName(), ans);
-			s.submitTask(buffer, description, a);
-		}
+		MyString pass;
+		std::cin >> pass;
+		s.enterCourse(buffer, pass);
 	}
-	else if (buffer == "Review")
+	else if (buffer == "submit_task")
 	{
 		std::cin >> buffer;
-		if (buffer == "grades")
-		{
-			s.reviewGrades();
-		}
+		MyString description, ans;
+		std::cin >> description;
+		std::cin >> ans;
+		Answer a(s.getLoggedUser().getStudentPtr()->getName(), ans);
+		s.submitTask(buffer, description, a);
 	}
-	else if (buffer == "Send")
+	else if (buffer == "review_grades")
+	{
+		s.reviewGrades();
+	}
+	else if (buffer == "send_message_to")
 	{
 		std::cin >> buffer;
-		if (buffer == "message")
-		{
-			std::cin >> buffer;
-			if (buffer == "to")
-			{
-				std::cin >> buffer;
-				MyString familyName, mess;
-				std::cin >> familyName;
-				std::cin >> mess;
-				s.sendMessageTo(buffer, familyName, mess);
-			}
-		}
+		MyString familyName, mess;
+		std::cin >> familyName;
+		std::cin >> mess;
+		s.sendMessageTo(buffer, familyName, mess);
 	}
-	else if (buffer == "Check")
+	else if (buffer == "check_mailbox")
+	{
+		s.checkMailbox();
+	}
+	else if (buffer == "change_password")
 	{
 		std::cin >> buffer;
-		if (buffer == "mailbox")
-		{
-			s.checkMailbox();
-		}
+		s.getLoggedUser().getPtr()->changePassword(buffer);
 	}
-	else if (buffer == "Change")
-	{
-		std::cin >> buffer;
-		if (buffer == "password")
-		{
-			std::cin >> buffer;
-			s.getLoggedUser().getPtr()->changePassword(buffer);
-		}
-	}
-
 	std::cout << std::endl;
 }
 

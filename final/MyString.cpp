@@ -13,7 +13,7 @@ void MyString::free()
 void MyString::copyFrom(const MyString& other)
 {
 	capacity = other.capacity;
-	data = new char[capacity];
+	data = new char[capacity + 1];
 	strcpy(data, other.data);
 	size = other.size;
 }
@@ -21,7 +21,9 @@ void MyString::copyFrom(const MyString& other)
 void MyString::resize(unsigned newCapacity)
 {
 	char* newData = new char[newCapacity + 1];
+	newData[0] = '\0';
 	strcpy(newData, data);
+	newData[size] = '\0';
 	delete[] data;
 	data = newData;
 	capacity = newCapacity;
@@ -53,7 +55,7 @@ MyString::MyString(const char* str)
 
 	size = strlen(str);
 	capacity = getMaxResizeCapacity(size);
-	data = new char[capacity];
+	data = new char[capacity + 1] {};
 	strcpy(data, str);
 }
 
@@ -99,9 +101,11 @@ void MyString::read(std::ifstream& ifs)
 {
 	free();
 	ifs.read((char*)&capacity, sizeof(capacity));
-	data = new char[capacity] {};
 	ifs.read((char*)&size, sizeof(size));
+
+	data = new char[capacity + 1] {};
 	ifs.read((char*)data, size);
+	data[size] = '\0';
 }
 
 const char* MyString::c_str() const
@@ -124,9 +128,11 @@ MyString& MyString::operator+=(const MyString& other)
 	if (size + other.size + 1 > capacity)
 		resize(getMaxResizeCapacity(size + other.size));
 
-	strncat(data, other.data, other.size);
+	strncpy(data + size, other.data, other.size);
 
 	size += other.size;
+
+	data[size] = '\0';
 
 	return *this;
 }
@@ -167,8 +173,8 @@ MyString MyString::substr(unsigned begin, unsigned howMany)
 	MyString res;
 	res.capacity = getMaxResizeCapacity(howMany + 1);
 	res.data = new char[res.capacity];
-	strncat(res.data, data + begin, howMany);
-	res.size = howMany;
+	strncpy(res.data, data + begin, howMany);
+	res.data[howMany] = '\0';
 
 	return res;
 }

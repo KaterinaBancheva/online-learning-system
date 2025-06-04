@@ -5,9 +5,9 @@
 
 namespace FileNames
 {
-	static const MyString courses = "Courses.dat";
-	static const MyString users = "Users.dat";
-	static const MyString admin = "Admin.dat";
+	static const MyString courses = "Courses.bin";
+	static const MyString users = "Users.bin";
+	static const MyString admin = "Admin.bin";
 }
 
 class System
@@ -32,6 +32,7 @@ protected:
 public:
 	System(const System& other) = delete;
 	System(System&& other) noexcept = delete;
+	System& operator= (const System& other) = delete;
 
 	static System& getInstance();
 

@@ -20,6 +20,12 @@ void Administrator::setId()
 	id = 0;
 }
 
+void Administrator::setNames(const MyString& name, const MyString& familyName)
+{
+	this->name = name;
+	this->familyName = familyName;
+}
+
 User* Administrator::clone() const
 {
 	return new Administrator(*this);

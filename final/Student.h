@@ -19,8 +19,8 @@ public:
     void addGrade(const Grade& grade);
     void addGrade(Grade&& grade);
 
-    void saveToFile(std::ofstream& ofs) const;
-    void readFromFile(std::ifstream& ifs);
+    void saveToFile(std::ofstream& ofs) const override ;
+    void readFromFile(std::ifstream& ifs) override;
 };
 
 

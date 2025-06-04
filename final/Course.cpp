@@ -238,7 +238,9 @@ void Course::readFromFile(std::ifstream& ifs, MyVector<User*>& users)
 	ifs.read((char*)&size, sizeof(size));
 	for (size_t i = 0; i < size; i++)
 	{
-		tasks[i].readFromFile(ifs);
+		Task temp;
+		temp.readFromFile(ifs);
+		tasks.push_back(std::move(temp));
 	}
 
 	ifs.read((char*)&password, sizeof(password));

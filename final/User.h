@@ -43,8 +43,8 @@ public:
 	virtual void printInfo() const = 0;
 	virtual ~User() = default;
 
-	void saveToFile(std::ofstream& ofs) const;
-	void readFromFile(std::ifstream& ifs);
+	virtual void saveToFile(std::ofstream& ofs) const;
+	virtual void readFromFile(std::ifstream& ifs);
 };
 
 

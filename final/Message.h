@@ -10,7 +10,7 @@ private:
 	time_t timestamp;
 	MyString content;
 public:
-	Message(); // ?
+	Message(); 
 	Message(const MyString& content, const MyString& sender);
 	void printMessage() const;
 

@@ -7,7 +7,7 @@ Student::Student(const MyString& name, const MyString& familyName, const MyStrin
     type = UserType::student;
 };
 
-void Student::reviewGrades()
+void Student::reviewGrades() 
 {
     for (size_t i = 0; i < grades.getSize(); i++)
     {
